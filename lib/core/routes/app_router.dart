@@ -6,6 +6,7 @@ import '../../views/customer/customer_dashboard.dart';
 import '../../views/merchant/merchant_dashboard.dart';
 import '../../views/rider/rider_dashboard.dart';
 import '../../views/admin/admin_dashboard.dart';
+import '../../views/merchant/merchant_registration_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -31,6 +32,12 @@ class AppRouter {
         path: '/merchant',
         builder: (context, state) => const MerchantDashboard(),
       ),
+
+      GoRoute(
+        path: '/merchant/register',
+        builder: (context, state) =>
+        const MerchantRegistrationScreen(),
+),
 
       GoRoute(
         path: '/rider',

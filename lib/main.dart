@@ -6,7 +6,8 @@ import 'core/constants/app_constants.dart';
 import 'core/theme/app_theme.dart';
 import 'view_models/auth_viewmodel.dart';
 import 'core/routes/app_router.dart';
-//import 'views/auth/login_screen.dart';
+import 'view_models/merchant_viewmodel.dart';
+import 'view_models/admin_viewmodel.dart';
 
 
 Future<void> main() async {
@@ -32,6 +33,12 @@ class DeliverXApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => MerchantViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AdminViewModel(),
         ),
       ],
       child: MaterialApp.router(
