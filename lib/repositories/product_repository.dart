@@ -20,9 +20,7 @@ class ProductRepository {
         .order('name');
 
     return response
-        .map<CategoryModel>(
-          (map) => CategoryModel.fromMap(map),
-        )
+        .map<CategoryModel>((map) => CategoryModel.fromMap(map))
         .toList();
   }
 
@@ -30,9 +28,7 @@ class ProductRepository {
   // MERCHANT PRODUCTS
   // =========================
 
-  Future<List<ProductModel>> getMerchantProducts(
-    String merchantId,
-  ) async {
+  Future<List<ProductModel>> getMerchantProducts(String merchantId) async {
     final response = await _client
         .from('merchant_products')
         .select()
@@ -40,9 +36,7 @@ class ProductRepository {
         .order('created_at', ascending: false);
 
     return response
-        .map<ProductModel>(
-          (map) => ProductModel.fromMap(map),
-        )
+        .map<ProductModel>((map) => ProductModel.fromMap(map))
         .toList();
   }
 
@@ -118,21 +112,33 @@ class ProductRepository {
   }
 
   Future<void> deleteProduct(String productId) async {
-    await _client
-        .from('merchant_products')
-        .delete()
-        .eq('id', productId);
+    await _client.from('merchant_products').delete().eq('id', productId);
   }
 
   Future<String> uploadProductImage({
-  required String userId,
-  required String fileName,
-  required Uint8List fileBytes,
-}) async {
-  return await StorageService.uploadProductImage(
-    userId: userId,
-    fileName: fileName,
-    fileBytes: fileBytes,
-  );
-}
+    required String userId,
+    required String fileName,
+    required Uint8List fileBytes,
+  }) async {
+    return await StorageService.uploadProductImage(
+      userId: userId,
+      fileName: fileName,
+      fileBytes: fileBytes,
+    );
+  }
+
+  Future<List<ProductModel>> getAvailableMerchantProducts(
+    String merchantId,
+  ) async {
+    final response = await _client
+        .from('merchant_products')
+        .select()
+        .eq('merchant_id', merchantId)
+        .eq('is_available', true)
+        .order('name');
+
+    return response
+        .map<ProductModel>((map) => ProductModel.fromMap(map))
+        .toList();
+  }
 }

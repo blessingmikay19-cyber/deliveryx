@@ -8,6 +8,10 @@ import '../../views/rider/rider_dashboard.dart';
 import '../../views/admin/admin_dashboard.dart';
 import '../../views/merchant/merchant_registration_screen.dart';
 import '../../views/merchant/merchant_products_screen.dart';
+import '../../views/customer/merchant_list_screen.dart';
+import '../../views/customer/merchant_menu_screen.dart';
+import '../../models/merchant_model.dart';
+import '../../views/customer/cart_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -24,6 +28,25 @@ class AppRouter {
       GoRoute(
         path: '/customer',
         builder: (context, state) => const CustomerDashboard(),
+      ),
+
+      GoRoute(
+        path: '/customer/merchants',
+        builder: (context, state) => const MerchantListScreen(),
+      ),
+
+      GoRoute(
+        path: '/customer/merchant/:id',
+        builder: (context, state) {
+          final merchant = state.extra as MerchantModel;
+
+          return MerchantMenuScreen(merchant: merchant);
+        },
+      ),
+
+      GoRoute(
+        path: '/customer/cart',
+        builder: (context, state) => const CartScreen(),
       ),
 
       GoRoute(

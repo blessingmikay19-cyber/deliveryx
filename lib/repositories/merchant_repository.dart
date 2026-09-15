@@ -4,9 +4,7 @@ import '../services/supabase_service.dart';
 class MerchantRepository {
   final _client = SupabaseService.client;
 
-  Future<MerchantModel?> getMerchantByProfileId(
-    String profileId,
-  ) async {
+  Future<MerchantModel?> getMerchantByProfileId(String profileId) async {
     final response = await _client
         .from('merchants')
         .select()
@@ -60,8 +58,7 @@ class MerchantRepository {
     }
 
     if (businessDescription != null) {
-      updates['business_description'] =
-          businessDescription;
+      updates['business_description'] = businessDescription;
     }
 
     if (phone != null) {
@@ -77,8 +74,7 @@ class MerchantRepository {
     }
 
     if (preparationTimeMinutes != null) {
-      updates['preparation_time_minutes'] =
-          preparationTimeMinutes;
+      updates['preparation_time_minutes'] = preparationTimeMinutes;
     }
 
     final response = await _client
@@ -89,5 +85,18 @@ class MerchantRepository {
         .single();
 
     return MerchantModel.fromMap(response);
+  }
+
+  Future<List<MerchantModel>> getApprovedOpenMerchants() async {
+    final response = await _client
+        .from('merchants')
+        .select()
+        .eq('approval_status', 'approved')
+        .eq('is_open', true)
+        .order('business_name');
+
+    return response
+        .map<MerchantModel>((map) => MerchantModel.fromMap(map))
+        .toList();
   }
 }
