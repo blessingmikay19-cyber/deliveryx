@@ -13,6 +13,8 @@ import 'view_models/product_viewmodel.dart';
 import 'view_models/customer_viewmodel.dart';
 import 'view_models/cart_viewmodel.dart';
 
+import 'package:material_ui/material_ui.dart' show MaterialUiCompatibilityBridge;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -46,6 +48,9 @@ class DeliverXApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
         routerConfig: AppRouter.router,
+        builder: (context, child) {
+    return MaterialUiCompatibilityBridge(child: child!);
+  },
       ),
     );
   }

@@ -39,6 +39,7 @@ dependencies:
   flutter_dotenv: ^6.0.1
   supabase_flutter: ^2.8.1
   file_picker: ^12.2.0
+  material_ui: ^1.1.1
 
 dev_dependencies:
   flutter_test:

@@ -45,9 +45,7 @@ class CartViewModel extends ChangeNotifier {
     required MerchantModel merchant,
   }) {
     // First item establishes the merchant. && _items.isEmpty added to ensure that the merchant is only set when the cart is empty, preventing issues when adding items from different merchants.
-    if (_merchant == null) {
-      _merchant = merchant;
-    }
+    _merchant ??= merchant;
 
     // Prevent products from different merchants
     // from being added to the same cart.
